@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproductive Classification System - ESHRE/ASRM Guidelines</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .tab-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        
+        .tab-nav {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 1rem 2rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #6c757d;
+            transition: all 0.3s ease;
+        }
+        
+        .tab:hover {
+            background: #e9ecef;
+            color: #495057;
+        }
+        
+        .tab.active {
+            background: #007bff;
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 2rem;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e9ecef;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .result {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .result.success {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+        }
+        
+        .result.error {
+            background: linear-gradient(135deg, #dc3545 0%, #e83e8c 100%);
+            color: white;
+        }
+        
+        .result h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .result p {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .tab-nav {
+                flex-direction: column;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Reproductive Classification System</h1>
+            <p>ESHRE-ASRM Guidelines Compliant Analysis & Documentation</p>
+        </div>
+        
+        <div class="tab-container">
+            <div class="tab-nav">
+                <button class="tab active" onclick="showTab('sperm')">Sperm Analysis</button>
+                <button class="tab" onclick="showTab('oocyte')">Oocyte Analysis</button>
+                <button class="tab" onclick="showTab('embryo')">Embryo Analysis</button>
+            </div>
+            
+            <!-- Sperm Analysis Tab -->
+            <div id="sperm-tab" class="tab-content active">
+                <h2>Sperm Analysis (WHO 2021 Criteria)</h2>
+                <form id="sperm-form">
+                    <div class="form-grid">
+                        <div>
+                            <div class="form-group">
+                                <label>Sample ID:</label>
+                                <input type="text" name="sample_id" placeholder="Auto-generated if empty">
+                            </div>
+                            <div class="form-group">
+                                <label>Concentration (million/ml): *</label>
+                                <input type="number" name="concentration" step="0.1" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Progressive Motility (%): *</label>
+                                <input type="number" name="progressive_motility" step="0.1" min="0" max="100" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Normal Morphology (%): *</label>
+                                <input type="number" name="normal_morphology" step="0.1" min="0" max="100" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Volume (ml):</label>
+                                <input type="number" name="volume" step="0.1" min="0">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <label>Total Motility (%):</label>
+                                <input type="number" name="total_motility" step="0.1" min="0" max="100">
+                            </div>
+                            <div class="form-group">
+                                <label>Vitality (%):</label>
+                                <input type="number" name="vitality" step="0.1" min="0" max="100">
+                            </div>
+                            <div class="form-group">
+                                <label>pH:</label>
+                                <input type="number" name="ph" step="0.1" value="7.2" min="6" max="9">
+                            </div>
+                            <div class="form-group">
+                                <label>Liquefaction Time (minutes):</label>
+                                <input type="number" name="liquefaction_time" value="30" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Notes:</label>
+                                <textarea name="notes" rows="3" placeholder="Additional observations..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn">Analyze Sperm Sample</button>
+                </form>
+                <div id="sperm-result"></div>
+            </div>
+            
+            <!-- Oocyte Analysis Tab -->
+            <div id="oocyte-tab" class="tab-content">
+                <h2>Oocyte Analysis (ESHRE Guidelines)</h2>
+                <form id="oocyte-form">
+                    <div class="form-grid">
+                        <div>
+                            <div class="form-group">
+                                <label>Oocyte ID:</label>
+                                <input type="text" name="oocyte_id" placeholder="Auto-generated if empty">
+                            </div>
+                            <div class="form-group">
+                                <label>Maturity: *</label>
+                                <select name="maturity" required>
+                                    <option value="">Select maturity stage</option>
+                                    <option value="metaphase_ii">Metaphase II (Mature)</option>
+                                    <option value="metaphase_i">Metaphase I (Intermediate)</option>
+                                    <option value="germinal_vesicle">Germinal Vesicle (Immature)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Morphology Score (1-4): *</label>
+                                <select name="morphology_score" required>
+                                    <option value="">Select score</option>
+                                    <option value="4">4 - Excellent</option>
+                                    <option value="3">3 - Good</option>
+                                    <option value="2">2 - Fair</option>
+                                    <option value="1">1 - Poor</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Cumulus Cells:</label>
+                                <select name="cumulus_cells">
+                                    <option value="expanded">Expanded</option>
+                                    <option value="compact">Compact</option>
+                                    <option value="absent">Absent</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <label>Zona Pellucida:</label>
+                                <select name="zona_pellucida">
+                                    <option value="normal">Normal</option>
+                                    <option value="thick">Thick</option>
+                                    <option value="thin">Thin</option>
+                                    <option value="irregular">Irregular</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Cytoplasm:</label>
+                                <select name="cytoplasm">
+                                    <option value="homogeneous">Homogeneous</option>
+                                    <option value="granular">Granular</option>
+                                    <option value="vacuolated">Vacuolated</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Polar Body:</label>
+                                <select name="polar_body">
+                                    <option value="present">Present</option>
+                                    <option value="absent">Absent</option>
+                                    <option value="fragmented">Fragmented</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Notes:</label>
+                                <textarea name="notes" rows="3" placeholder="Additional observations..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn">Analyze Oocyte</button>
+                </form>
+                <div id="oocyte-result"></div>
+            </div>
+            
+            <!-- Embryo Analysis Tab -->
+            <div id="embryo-tab" class="tab-content">
+                <h2>Embryo Analysis (ASRM/ESHRE Guidelines)</h2>
+                <form id="embryo-form">
+                    <div class="form-grid">
+                        <div>
+                            <div class="form-group">
+                                <label>Embryo ID:</label>
+                                <input type="text" name="embryo_id" placeholder="Auto-generated if empty">
+                            </div>
+                            <div class="form-group">
+                                <label>Development Day: *</label>
+                                <select name="day" required>
+                                    <option value="">Select day</option>
+                                    <option value="1">Day 1</option>
+                                    <option value="2">Day 2</option>
+                                    <option value="3">Day 3</option>
+                                    <option value="4">Day 4</option>
+                                    <option value="5">Day 5</option>
+                                    <option value="6">Day 6</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Cell Count: *</label>
+                                <input type="number" name="cell_count" min="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Fragmentation (%): *</label>
+                                <input type="number" name="fragmentation" min="0" max="100" step="0.1" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Symmetry:</label>
+                                <select name="symmetry">
+                                    <option value="symmetric">Symmetric</option>
+                                    <option value="asymmetric">Asymmetric</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Multinucleation:</label>
+                                <select name="multinucleation">
+                                    <option value="false">No</option>
+                                    <option value="true">Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <label>Expansion (Blastocyst only):</label>
+                                <select name="expansion">
+                                    <option value="">N/A</option>
+                                    <option value="1">1 - Early blastocyst</option>
+                                    <option value="2">2 - Blastocyst</option>
+                                    <option value="3">3 - Full blastocyst</option>
+                                    <option value="4">4 - Expanded blastocyst</option>
+                                    <option value="5">5 - Hatching blastocyst</option>
+                                    <option value="6">6 - Hatched blastocyst</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Inner Cell Mass (Blastocyst only):</label>
+                                <select name="inner_cell_mass">
+                                    <option value="">N/A</option>
+                                    <option value="A">A - Many cells, tightly packed</option>
+                                    <option value="B">B - Several cells, loosely grouped</option>
+                                    <option value="C">C - Very few cells</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Trophectoderm (Blastocyst only):</label>
+                                <select name="trophectoderm">
+                                    <option value="">N/A</option>
+                                    <option value="A">A - Many cells, cohesive epithelium</option>
+                                    <option value="B">B - Few cells, loose epithelium</option>
+                                    <option value="C">C - Very few large cells</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Notes:</label>
+                                <textarea name="notes" rows="3" placeholder="Additional observations..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn">Analyze Embryo</button>
+                </form>
+                <div id="embryo-result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Form submission handlers
+        document.getElementById('sperm-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+            
+            try {
+                const response = await fetch('/analyze_sperm', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                displayResult('sperm-result', result, 'sperm');
+            } catch (error) {
+                displayError('sperm-result', error.message);
+            }
+        });
+
+        document.getElementById('oocyte-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+            
+            try {
+                const response = await fetch('/analyze_oocyte', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                displayResult('oocyte-result', result, 'oocyte');
+            } catch (error) {
+                displayError('oocyte-result', error.message);
+            }
+        });
+
+        document.getElementById('embryo-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+            
+            try {
+                const response = await fetch('/analyze_embryo', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                displayResult('embryo-result', result, 'embryo');
+            } catch (error) {
+                displayError('embryo-result', error.message);
+            }
+        });
+
+        function displayResult(elementId, result, type) {
+            const element = document.getElementById(elementId);
+            if (result.success) {
+                const idField = type === 'sperm' ? 'sample_id' : type === 'oocyte' ? 'oocyte_id' : 'embryo_id';
+                element.innerHTML = `
+                    <div class="result success">
+                        <h3>✓ Analysis Complete</h3>
+                        <p><strong>Classification:</strong> ${result.classification}</p>
+                        <p><strong>ID:</strong> ${result[idField]}</p>
+                        <button class="btn-secondary" onclick="viewReport('${type}', '${result[idField]}')">
+                            📄 View Detailed Report
+                        </button>
+                    </div>
+                `;
+            } else {
+                element.innerHTML = `
+                    <div class="result error">
+                        <h3>❌ Analysis Error</h3>
+                        <p>${result.error}</p>
+                    </div>
+                `;
+            }
+        }
+
+        function displayError(elementId, error) {
+            document.getElementById(elementId).innerHTML = `
+                <div class="result error">
+                    <h3>❌ Error</h3>
+                    <p>${error}</p>
+                </div>
+            `;
+        }
+
+        async function viewReport(type, id) {
+            try {
+                const response = await fetch(`/report/${type}/${id}`);
+                const result = await response.json();
+                
+                const reportWindow = window.open('', '_blank', 'width=800,height=600');
+                reportWindow.document.write(`
+                    <html>
+                        <head>
+                            <title>Analysis Report - ${id}</title>
+                            <style>
+                                body { 
+                                    font-family: 'Courier New', monospace; 
+                                    white-space: pre-wrap; 
+                                    padding: 20px; 
+                                    background: #f8f9fa;
+                                    line-height: 1.4;
+                                }
+                                .report-container {
+                                    background: white;
+                                    padding: 30px;
+                                    border-radius: 10px;
+                                    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            <div class="report-container">
+                                ${result.report}
+                            </div>
+                        </body>
+                    </html>
+                `);
+                reportWindow.document.close();
+            } catch (error) {
+                alert('Error generating report: ' + error.message);
+            }
+        }
+    </script>
+</body>
+</html>
